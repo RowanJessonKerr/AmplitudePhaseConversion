@@ -1,6 +1,7 @@
 import sys
 import numpy as np
 from scipy.interpolate import make_interp_spline
+from scipy.interpolate import interp1d
 from matplotlib import pyplot as plt
 
 def get_data():
@@ -38,7 +39,7 @@ def interpolate_list(x, f , numpoints, interp_order = 2):
     fint = interp_xsection(xlin) 
     return xlin, fint
 
-
+#https://stackoverflow.com/questions/40642061/how-to-set-axis-ticks-in-multiples-of-pi-python-matplotlib
 def multiple_formatter(denominator=2, number=np.pi, latex='\pi'):
     def gcd(a, b):
         while b:
@@ -66,7 +67,7 @@ def multiple_formatter(denominator=2, number=np.pi, latex='\pi'):
             else:
                 return r'$\frac{%s%s}{%s}$'%(num,latex,den)
     return _multiple_formatter
-
+#https://stackoverflow.com/questions/40642061/how-to-set-axis-ticks-in-multiples-of-pi-python-matplotlib
 class Multiple:
     def __init__(self, denominator=2, number=np.pi, latex='\pi'):
         self.denominator = denominator
@@ -95,7 +96,6 @@ def graph_setup_EP(xlim = True):
 
     # Enforce max limit of [-2π, 2π] only if exceeded
     if y_min < -2*np.pi or y_max > 2*np.pi:
-        print("hlle")
         ax.set_ylim(np.clip([y_min, y_max], -2*np.pi, 2*np.pi))
 
     ax.yaxis.set_major_locator(plt.MultipleLocator(np.pi / 2))
@@ -116,6 +116,8 @@ def graph_setup_EA(xlim = True):
     if xlim:
         plt.xlim([2,6])
 
+
+#https://stackoverflow.com/questions/579310/formatting-long-numbers-as-strings
 def human_format(num):
     num = float('{:.3g}'.format(num))
     magnitude = 0
@@ -123,4 +125,25 @@ def human_format(num):
         magnitude += 1
         num /= 1000.0
     return '{}{}'.format('{:f}'.format(num).rstrip('0').rstrip('.'), ['', 'K', 'M', 'B', 'T'][magnitude])
+
+#ChatGPT
+def linear_extend(arr, left_pad, right_pad):
+    x = np.arange(len(arr))  # Original indices
+    y = arr  # Original values
+    
+    # Create an extrapolation function
+    f = interp1d(x, y, kind='linear', fill_value='extrapolate')
+    
+    # Generate new indices for left and right padding
+    left_indices = np.arange(-left_pad, 0)
+    right_indices = np.arange(len(arr), len(arr) + right_pad)
+    
+    # Compute the extrapolated values
+    left_extension = f(left_indices)
+    right_extension = f(right_indices)
+    
+    return np.concatenate([left_extension, arr, right_extension])
+
+    
+
 
