@@ -17,6 +17,9 @@ Elin, Sint  = HelperFunctions.interpolate_list(energy, Sint, int(1e6))
 
 padRight = 500000
 padLeft = 5000
+plt.plot(Elin,Sint,label = "Original", zorder = 3)
+
+
 Sint = np.pad(Sint, (0,padRight), 'reflect', reflect_type='odd')
 Sint = np.pad(Sint, (padLeft,0), 'reflect', reflect_type='odd')
 
@@ -26,7 +29,8 @@ C = 1
 SintA = Sint + C
 Slog = np.log(SintA)
 
-plt.plot(Elin,Sint)
+plt.plot(Elin,Sint,label = "Extended", zorder = 0)
+HelperFunctions.graph_setup_EA(xlim=False)
 plt.savefig("../Plots/PaddingExtensionOfCrossSection")
 plt.show()
 

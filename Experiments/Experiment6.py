@@ -16,12 +16,15 @@ fftH = np.fft.fft(phaseH)
 fftP = np.fft.fft(phase)
 freqs = np.fft.fftfreq(len(phase))
 
+
+np.savetxt("fourierTransform.csv", np.column_stack((freqs, np.real(fftH), np.real(fftP))), delimiter=',')
+
 plt.scatter(freqs, np.real(fftH), s= 0.1, label = "$\\mathcal{F[H[}f]]$")
 plt.scatter(freqs, np.real(fftP), s= 0.1, label = "$\\mathcal{F[[\\phi]]}$")
 plt.legend()
 plt.title("Fourier's of Phase: Real Component")
 plt.xlabel("Frequency")
-plt.xlim([-0.08,0.08])
+#plt.xlim([-0.08,0.08])
 plt.ylim([-200,100])
 plt.ylabel("Amplitude Real Component")
 plt.savefig("../Plots/FourierRealPhase")
