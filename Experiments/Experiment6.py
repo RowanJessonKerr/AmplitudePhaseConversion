@@ -41,3 +41,16 @@ plt.ylabel("Amplitude Imag Component")
 plt.savefig("../Plots/FourierImagPhase")
 
 plt.show()
+
+e, s = HelperFunctions.interpolate_list(energy, slog, 50000)
+
+fftSlog = np.fft.fft(s)
+freqs = np.fft.fftfreq(len(s), d=(e[1] - e[0]))
+powerSpec = np.abs(fftSlog)
+
+plt.scatter(freqs, powerSpec, s=0.1)
+
+plt.title("Power Spectrum of $log|f|$")
+plt.xlabel("Frequency")
+plt.ylabel("Power")
+plt.show()

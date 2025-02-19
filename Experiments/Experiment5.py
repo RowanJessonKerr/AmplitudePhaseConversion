@@ -34,7 +34,7 @@ plt.plot(energy, pad_simple, label = "pad_simple")
 plt.plot(energy, phase, label = "Actual ")
 
 HelperFunctions.graph_setup_EP()
-plt.savefig("/Plots/HilbertMethods")
+plt.savefig("../Plots/HilbertMethods")
 plt.show()
 
 

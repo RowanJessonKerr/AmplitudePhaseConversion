@@ -4,6 +4,10 @@ import numpy as np
 from hilbert_toolkit import hilbert_fft_henrici
 from scipy.interpolate import make_interp_spline
 
+'''
+    This extends the shape of the amplitude using a gaussian fitted to 
+    the large gaussian like structure with peak around E=50eV. RHT is used from 7
+'''
 
 energy, Sint, phase = HelperFunctions.get_data()
 Ry = 13.6058

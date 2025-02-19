@@ -136,6 +136,7 @@ def linear_extend(arr, left_pad, right_pad):
     
     # Generate new indices for left and right padding
     left_indices = np.arange(-left_pad, 0)
+    print(len(left_indices))
     right_indices = np.arange(len(arr), len(arr) + right_pad)
     
     # Compute the extrapolated values
